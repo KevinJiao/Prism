@@ -1,0 +1,24 @@
+1. Design decisions
+
+I choose to write this framework in Java beause of its OOP capabilities,
+so I could take advantage of Java's inheritance features.
+
+2. Ambiguities
+
+There were very few ambiguities in the instructions, and they were
+dealt with relatively easily. To signal an error when GetNextCard()
+does not have another card to return, I choose to throw a
+NoSuchElement exception, which is what Java's default iterator class does.
+I assumed once a card was dealt it cannot be dealt again, which is how decks
+work in real life.
+
+3. Testing
+
+There were only two main functions that were required, which I tested in
+ExampleUsage.java.
+
+4. Usage
+
+javac *.java
+
+java ExampleUsage
