@@ -1,0 +1,22 @@
+1. To run:
+    $node vacationing-salesman.js < cities.txt
+
+2. Language choice:
+    I choose node because of npm library support, and also because
+    I haven't coded javascript in a while and wanted a refresher
+
+3. Decisions
+    The main decisions I had to make were how to discover the locations
+    of the list of cities, and how to calculate their distances. I settled
+    on Google's geocoding api because of it's documentation and ease of use
+
+    I also made many choices on how to split the problem into easily solvable
+    subtasks, where each function I wrote completed a part of the solution.
+
+4. Time
+    Although I did manage to finish, it took me the entire 3 hours, spending 45
+    minutes on Deck of Cards and the rest on Vacationing Salesman. Remembering how
+    to write async node functions took longer than I expected, and so did figuring
+    out how to utilize Google's api. If I had extra time, I would definitely spend that
+    time on correctly catchinge errors in my javascript callbacks, as I currently assume
+    all callback funtions are not passed error inputs.
