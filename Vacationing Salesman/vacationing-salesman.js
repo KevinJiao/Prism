@@ -18,33 +18,28 @@ function calculateDistances(cities) {
     distances = [];
     var currloc = results[0];
     for (var i = 1; i < results.length; i++){
-      distances.push(calculateDistance(currloc, results[i]));
+      distances.push(haversine(results[i].lat,results[i].lng, currloc.lat, currloc.lng ));
       currloc = results[i];
     }
 
     for (var i = 0; i < distances.length; i++){
       console.log(cities[i] + " -> " + cities[i+1] + ": " + distances[i].toString() + " miles");
     }
+
+    console.log("Total distance covered in your trip: " + distances.reduce(function(a, b){return a + b}).toString()  + "miles");
   });
 }
 
-function calculateDistance(loc1, loc2){
-  //Haversine formula taken from wikipedia, Javascript implementation taken from StackOverflow
-  deg2rad = function(deg) {
-    return deg * (Math.PI/180)
-  }
-
-  var R = 3959; // Radius of the earth in mi
-  var dLat = deg2rad(loc2.lat-loc1.lat);
-  var dLon = deg2rad(loc2.lng-loc2.lng);
-  var a =
-    Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(deg2rad(loc1.lat)) * Math.cos(deg2rad(loc2.lat)) *
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-    ;
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var d = R * c; // Distance in mi
-  return d;
+function haversine(loc1, loc2) {
+  //Haversine formula taken from wikipedia, Javascript implementation taken from RosettCode
+       var radians = Array.prototype.map.call(arguments, function(deg) { return deg/180.0 * Math.PI; });
+       var lat1 = radians[0], lon1 = radians[1], lat2 = radians[2], lon2 = radians[3];
+       var R = 3959; // km
+       var dLat = lat2 - lat1;
+       var dLon = lon2 - lon1;
+       var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLon / 2) * Math.sin(dLon /2) * Math.cos(lat1) * Math.cos(lat2);
+       var c = 2 * Math.asin(Math.sqrt(a));
+       return R * c;
 }
 
 function calculateLocations(cities, callback){
