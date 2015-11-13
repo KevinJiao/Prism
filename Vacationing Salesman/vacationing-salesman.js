@@ -14,11 +14,10 @@ cities.pop(); //Last element of Cities is the empty string because of how split(
 function calculateDistances(cities) {
   calculateLocations(cities, function(results){
 
-    console.log(calculateDistance(results[0], results[1]));
     distances = [];
     var currloc = results[0];
     for (var i = 1; i < results.length; i++){
-      distances.push(haversine(results[i].lat,results[i].lng, currloc.lat, currloc.lng ));
+      distances.push(haversine(results[i], currloc));
       currloc = results[i];
     }
 
@@ -32,9 +31,10 @@ function calculateDistances(cities) {
 
 function haversine(loc1, loc2) {
   //Haversine formula taken from wikipedia, Javascript implementation taken from RosettCode
-       var radians = Array.prototype.map.call(arguments, function(deg) { return deg/180.0 * Math.PI; });
+       var coords = [loc1.lat, loc1.lng, loc2.lat, loc2.lng];
+       var radians = coords.map(function(deg) { return deg/180.0 * Math.PI; });
        var lat1 = radians[0], lon1 = radians[1], lat2 = radians[2], lon2 = radians[3];
-       var R = 3959; // km
+       var R = 3959; // Radius of earth in miles
        var dLat = lat2 - lat1;
        var dLon = lon2 - lon1;
        var a = Math.sin(dLat / 2) * Math.sin(dLat /2) + Math.sin(dLon / 2) * Math.sin(dLon /2) * Math.cos(lat1) * Math.cos(lat2);
